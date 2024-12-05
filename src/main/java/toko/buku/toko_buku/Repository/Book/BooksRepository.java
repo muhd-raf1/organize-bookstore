@@ -1,14 +1,16 @@
 package toko.buku.toko_buku.Repository.Book;
 
+import toko.buku.toko_buku.Entity.BooksEntity;
+
 public interface BooksRepository {
 
-    public void insert(BooksRepository book);
+    public boolean insert(BooksEntity book);
 
-    public void delete(BooksRepository book);
+    public void delete(BooksEntity book);
 
-    public void update(BooksRepository book);
+    public void update(BooksEntity book);
 
-    public void findById(BooksRepository book);
+    public void findById(BooksEntity book);
 
-    public void findByName(BooksRepository book);
+    public void findByName(BooksEntity book);
 }

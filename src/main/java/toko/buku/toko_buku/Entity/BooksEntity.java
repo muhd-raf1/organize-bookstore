@@ -21,7 +21,7 @@ public class BooksEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categori", referencedColumnName = "id")
-    private Categories idCategori;
+    private CategoriesEntity idCategori;
 
     private String title;
 
@@ -53,11 +53,11 @@ public class BooksEntity {
         this.id = id;
     }
 
-    public Categories getIdCategori() {
+    public CategoriesEntity getIdCategori() {
         return idCategori;
     }
 
-    public void setIdCategori(Categories idCategori) {
+    public void setIdCategori(CategoriesEntity idCategori) {
         this.idCategori = idCategori;
     }
 

@@ -1,0 +1,25 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+<persistence-unit name="Project_Bookstore">
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entity Classes -->
+        <class>java.toko.buku.toko_buku.Entity.BooksEntity</class>
+        <class>java.toko.buku.toko_buku.Entity.Categories</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://localhost:5432/belajar_java_jpa"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
+            <property name="jakarta.persistence.jdbc.password" value="postgres"/>
+            <property name="hibernate.show_sql" value="true"/> <!-- menampilkan sql di terminal -->
+            <property name="hibernate.format_sql" value="true"/> <!-- merapikan/menformatkan sql  -->
+        </properties>
+    </persistence-unit>
+</persistence>

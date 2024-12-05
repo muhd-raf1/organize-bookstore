@@ -8,12 +8,12 @@ import toko.buku.toko_buku.Entity.BooksEntity;
 
 public class BooksRepositoryImpl implements BooksRepository {
 
+    private EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
     private BooksEntity booksEntity;
 
     @Override
     public boolean insert(BooksEntity book) {
 
-        EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -49,9 +49,24 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public void delete(BooksEntity book) {
+    public boolean delete(BooksEntity book) {
 
-        entityManagerFactory
+        EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            transaction.commit();
+            entityManager.close();
+            entityManagerFactory.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+            return false;
+        }
 
     }
 

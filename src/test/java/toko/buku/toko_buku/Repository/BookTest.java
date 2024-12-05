@@ -19,19 +19,24 @@ public class BookTest {
         booksRepository = new BooksRepositoryImpl();
 
         BooksEntity book = new BooksEntity();
-        book.setAuthor("Aidil Syahmi");
+        book.setAuthor("Tere Liye");
         book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("A0001");
+        book.setId("A0002");
         book.setIdCategori(new CategoriesEntity("Comedy"));
-        book.setPages(124);
-        book.setPublisher("Cahaya Sdn. Bhd");
-        book.setTitle("Sang Kancil");
-        book.setYearOfPublish(LocalDateTime.of(2010, 4, 17, 0, 0));
+        book.setPages(143);
+        book.setPublisher("Niponpaint Sdn. Bhd");
+        book.setTitle("Hello");
+        book.setYearOfPublish(LocalDateTime.of(2023, 4, 17, 0, 0));
         book.setUpdatedAt(LocalDateTime.now());
 
         boolean insert = booksRepository.insert(book);
 
         Assertions.assertTrue(insert);
+    }
+
+    @Test
+    void testDelete() {
+
     }
 }

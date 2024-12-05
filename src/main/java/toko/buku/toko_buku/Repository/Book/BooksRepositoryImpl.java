@@ -9,11 +9,11 @@ import toko.buku.toko_buku.Entity.BooksEntity;
 public class BooksRepositoryImpl implements BooksRepository {
 
     private BooksEntity booksEntity;
-    private EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
 
     @Override
     public boolean insert(BooksEntity book) {
 
+        EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -50,6 +50,8 @@ public class BooksRepositoryImpl implements BooksRepository {
 
     @Override
     public void delete(BooksEntity book) {
+
+        entityManagerFactory
 
     }
 

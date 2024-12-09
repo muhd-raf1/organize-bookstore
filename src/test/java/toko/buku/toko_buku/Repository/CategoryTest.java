@@ -21,4 +21,12 @@ public class CategoryTest {
 
         Assertions.assertTrue(insert);
     }
+
+    @Test
+    void testDelete() {
+
+        boolean delete = categoriRepository.delete(new CategoriesEntity("Ficton"));
+
+        Assertions.assertTrue(delete);
+    }
 }

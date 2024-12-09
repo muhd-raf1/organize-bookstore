@@ -38,7 +38,33 @@ public class CategoryRepositoryImpl implements CategoriRepository {
     }
 
     @Override
-    public void delete(CategoriesEntity category) {
+    public boolean delete(CategoriesEntity category) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CategoriesEntity categoriesEntity = entityManager
+                    .find(CategoriesEntity.class, category.getId());
+
+            entityManager.remove(categoriesEntity);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed");
+            entityManagerFactory.close();
+            System.out.println("entityManagerfactory closed");
+        }
 
     }
 

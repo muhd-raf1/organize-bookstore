@@ -6,7 +6,7 @@ public interface CategoriRepository {
 
     public boolean insert(CategoriesEntity category);
 
-    public void delete(CategoriesEntity category);
+    public boolean delete(CategoriesEntity category);
 
     public void update(CategoriesEntity category);
 

@@ -22,13 +22,17 @@ public class CategoryRepositoryImpl implements CategoriRepository {
             entityManager.persist(category);
 
             transaction.commit();
-            entityManager.close();
-            entityManagerFactory.close();
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             transaction.rollback();
             return false;
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed");
+            entityManagerFactory.close();
+            System.out.println("entityManagerfactory closed");
         }
 
     }

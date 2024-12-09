@@ -14,8 +14,8 @@ public class CategoryTest {
     @Test
     void testInsert() {
         CategoriesEntity categoriesEntity = new CategoriesEntity();
-        categoriesEntity.setId("Comedy");
-        categoriesEntity.setCategory("Comedy");
+        categoriesEntity.setId("Ficton");
+        categoriesEntity.setCategory("Ficton");
 
         boolean insert = categoriRepository.insert(categoriesEntity);
 

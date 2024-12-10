@@ -1,5 +1,7 @@
 package toko.buku.toko_buku.Repository;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -29,4 +31,12 @@ public class CategoryTest {
 
         Assertions.assertTrue(delete);
     }
+
+    @Test
+    void testFindBooksSameGenre() {
+        List<CategoriesEntity> result = categoriRepository
+                .findBooksSameGenre(new CategoriesEntity("Category"));
+        Assertions.assertNotNull(result);
+    }
+
 }

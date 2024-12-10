@@ -24,6 +24,11 @@ public class CategoriesEntity {
     public CategoriesEntity() {
     }
 
+    public CategoriesEntity(String id, String category) {
+        this.id = id;
+        this.category = category;
+    }
+
     public CategoriesEntity(String id) {
         this.id = id;
     }

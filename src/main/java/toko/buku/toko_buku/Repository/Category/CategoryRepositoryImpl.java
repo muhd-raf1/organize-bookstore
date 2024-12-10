@@ -71,6 +71,31 @@ public class CategoryRepositoryImpl implements CategoriRepository {
     @Override
     public void update(CategoriesEntity category) {
 
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CategoriesEntity categoriesEntity = entityManager
+                    .find(CategoriesEntity.class, category.getId());
+            categoriesEntity.setId(category.getId());
+            categoriesEntity.setCategory(category.getCategory());
+
+            entityManager.merge(categoriesEntity);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed !");
+            entityManagerFactory.close();
+            System.out.println("entityManagerFactory closed !");
+        }
     }
 
     @Override

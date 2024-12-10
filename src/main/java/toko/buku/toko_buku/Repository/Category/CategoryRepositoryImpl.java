@@ -85,16 +85,19 @@ public class CategoryRepositoryImpl implements CategoriRepository {
             entityManager.merge(categoriesEntity);
 
             transaction.commit();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            transaction.rollback();
-
-        } finally {
             entityManager.close();
             System.out.println("entityManager closed !");
             entityManagerFactory.close();
             System.out.println("entityManagerFactory closed !");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+
+            // } finally {
+            // entityManager.close();
+            // System.out.println("entityManager closed !");
+            // entityManagerFactory.close();
+            // System.out.println("entityManagerFactory closed !");
         }
     }
 

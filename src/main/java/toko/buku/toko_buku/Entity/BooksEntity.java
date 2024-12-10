@@ -46,6 +46,10 @@ public class BooksEntity {
     public BooksEntity() {
     }
 
+    public BooksEntity(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

@@ -76,7 +76,7 @@ public class CategoryRepositoryImpl implements CategoriRepository {
     }
 
     @Override
-    public void findBooksSameGenre(CategoriesEntity categoriesEntity) {
+    public List<CategoriesEntity> findBooksSameGenre(CategoriesEntity categoriesEntity) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -100,9 +100,18 @@ public class CategoryRepositoryImpl implements CategoriRepository {
 
             transaction.commit();
 
+            return resultList;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             transaction.rollback();
+
+            return null;
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed!");
+            entityManagerFactory.close();
+            System.out.println("entityManagerFactory closed !");
         }
     }
 

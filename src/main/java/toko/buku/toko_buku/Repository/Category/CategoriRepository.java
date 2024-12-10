@@ -8,7 +8,7 @@ public interface CategoriRepository {
 
     public boolean delete(CategoriesEntity category);
 
-    public void update(CategoriesEntity category);
+    public void update(String id, CategoriesEntity category);
 
     public void findBooksSameGenre();
 

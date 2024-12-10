@@ -18,15 +18,15 @@ public class BookTest {
     void testInsert() {
 
         BooksEntity book = new BooksEntity();
-        book.setAuthor("Tere Liye");
+        book.setAuthor("Rasya");
         book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("A0002");
-        book.setIdCategori(new CategoriesEntity("Comedy"));
+        book.setId("A0003");
+        book.setIdCategori(new CategoriesEntity("Horror"));
         book.setPages(143);
         book.setPublisher("Niponpaint Sdn. Bhd");
-        book.setTitle("Hello");
-        book.setYearOfPublish(LocalDateTime.of(2023, 4, 17, 0, 0));
+        book.setTitle("Who ?");
+        book.setYearOfPublish(LocalDateTime.of(2034, 10, 07, 0, 0));
         book.setUpdatedAt(LocalDateTime.now());
 
         boolean insert = booksRepository.insert(book);
@@ -37,6 +37,9 @@ public class BookTest {
     @Test
     void testDelete() {
 
+        boolean delete = booksRepository.delete("A0002");
+
+        Assertions.assertTrue(delete);
     }
 
     @Test

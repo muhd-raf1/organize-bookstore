@@ -51,7 +51,6 @@ public class BooksRepositoryImpl implements BooksRepository {
     @Override
     public boolean delete(BooksEntity book) {
 
-        EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
@@ -71,8 +70,46 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public void update(BooksEntity book) {
+    public void update(String id, BooksEntity book) {
 
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            BooksEntity booksEntity = entityManager.find(BooksEntity.class, id);
+
+            if (booksEntity != null) {
+                if (book.getAuthor() != null)
+                    booksEntity.setAuthor(book.getAuthor());
+                if (book.getDescription() != null)
+                    booksEntity.setDescription(book.getDescription());
+                if (book.getId() != null)
+                    booksEntity.setId(book.getId());
+                if (book.getPages() != null)
+                    booksEntity.setPages(book.getPages());
+                if (book.getPublisher() != null)
+                    booksEntity.setPublisher(book.getPublisher());
+                if (book.getTitle() != null)
+                    booksEntity.setTitle(book.getTitle());
+                if (book.getYearOfPublish() != null)
+                    booksEntity.setYearOfPublish(book.getYearOfPublish());
+
+                entityManager.merge(booksEntity);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed !");
+            entityManagerFactory.close();
+            System.out.println("entitymanagerFactory closed !");
+        }
     }
 
     @Override

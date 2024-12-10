@@ -49,7 +49,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public boolean delete(BooksEntity book) {
+    public boolean delete(String id) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -57,14 +57,22 @@ public class BooksRepositoryImpl implements BooksRepository {
         try {
             transaction.begin();
 
+            BooksEntity booksEntity = entityManager.find(BooksEntity.class, id);
+
+            entityManager.remove(booksEntity);
+
             transaction.commit();
-            entityManager.close();
-            entityManagerFactory.close();
             return true;
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             transaction.rollback();
             return false;
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed !");
+            entityManagerFactory.close();
+            System.out.println("entitymanagerFactory closed !");
         }
 
     }
@@ -108,7 +116,7 @@ public class BooksRepositoryImpl implements BooksRepository {
             entityManager.close();
             System.out.println("entityManager closed !");
             entityManagerFactory.close();
-            System.out.println("entitymanagerFactory closed !");
+            System.out.println("entityManagerFactory closed !");
         }
     }
 

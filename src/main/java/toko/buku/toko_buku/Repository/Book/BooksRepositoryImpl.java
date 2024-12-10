@@ -3,6 +3,11 @@ package toko.buku.toko_buku.Repository.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Root;
 import toko.buku.Utilities.UtilEntityManagerFactoy;
 import toko.buku.toko_buku.Entity.BooksEntity;
 
@@ -49,7 +54,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(BooksEntity book) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -57,7 +62,7 @@ public class BooksRepositoryImpl implements BooksRepository {
         try {
             transaction.begin();
 
-            BooksEntity booksEntity = entityManager.find(BooksEntity.class, id);
+            BooksEntity booksEntity = entityManager.find(BooksEntity.class, book.getId());
 
             entityManager.remove(booksEntity);
 
@@ -121,7 +126,44 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public void findById(BooksEntity book) {
+    public BooksEntity findById(BooksEntity book) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<BooksEntity> query = criteriaBuilder
+                    .createQuery(BooksEntity.class);
+            Root<BooksEntity> b = query.from(BooksEntity.class);
+            b.fetch("idCategori", JoinType.LEFT);
+
+            query.select(b);
+
+            query.where(
+                    criteriaBuilder.equal(b.get("id"), book.getId()));
+
+            TypedQuery<BooksEntity> typedQuery = entityManager.createQuery(query);
+            BooksEntity singleResult = typedQuery.getSingleResult();
+
+            transaction.commit();
+
+            return singleResult;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+
+            return null;
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager clossed !");
+            entityManagerFactory.close();
+            System.out.println("entityMangerFactory closed !");
+        }
 
     }
 

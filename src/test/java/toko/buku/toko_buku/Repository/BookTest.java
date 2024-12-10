@@ -37,7 +37,10 @@ public class BookTest {
     @Test
     void testDelete() {
 
-        boolean delete = booksRepository.delete("A0002");
+        BooksEntity booksEntity = new BooksEntity();
+        booksEntity.setId("A0002");
+
+        boolean delete = booksRepository.delete(booksEntity);
 
         Assertions.assertTrue(delete);
     }
@@ -50,5 +53,12 @@ public class BookTest {
         // booksEntity.setTitle("Pulang");
 
         booksRepository.update("A0002", booksEntity);
+    }
+
+    @Test
+    void testFindById() {
+        BooksEntity test = booksRepository.findById(new BooksEntity("A0003"));
+
+        Assertions.assertNotNull(test);
     }
 }

@@ -6,7 +6,7 @@ public interface BooksRepository {
 
     public boolean insert(BooksEntity book);
 
-    public boolean delete(BooksEntity book);
+    public boolean delete(String id);
 
     public void update(String id, BooksEntity book);
 

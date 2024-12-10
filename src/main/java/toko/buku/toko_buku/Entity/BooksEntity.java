@@ -10,10 +10,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import toko.buku.Utilities.UtilEntityListener;
 
 @Entity
 @Table(name = "books")
-@EntityListeners(EntityListeners.class)
+@EntityListeners(UtilEntityListener.class)
 public class BooksEntity {
 
     @Id

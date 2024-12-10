@@ -12,11 +12,10 @@ import toko.buku.toko_buku.Repository.Book.BooksRepositoryImpl;
 
 public class BookTest {
 
-    private BooksRepository booksRepository;
+    private BooksRepository booksRepository = new BooksRepositoryImpl();
 
     @Test
     void testInsert() {
-        booksRepository = new BooksRepositoryImpl();
 
         BooksEntity book = new BooksEntity();
         book.setAuthor("Tere Liye");
@@ -38,5 +37,15 @@ public class BookTest {
     @Test
     void testDelete() {
 
+    }
+
+    @Test
+    void testUpdate() {
+        BooksEntity booksEntity = new BooksEntity();
+        // booksEntity.setAuthor("Tere Liye");
+        booksEntity.setPages(213);
+        // booksEntity.setTitle("Pulang");
+
+        booksRepository.update("A0002", booksEntity);
     }
 }

@@ -6,11 +6,11 @@ public interface BooksRepository {
 
     public boolean insert(BooksEntity book);
 
-    public boolean delete(String id);
+    public boolean delete(BooksEntity book);
 
     public void update(String id, BooksEntity book);
 
-    public void findById(BooksEntity book);
+    public BooksEntity findById(BooksEntity book);
 
     public void findByName(BooksEntity book);
 }

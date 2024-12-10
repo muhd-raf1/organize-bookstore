@@ -1,5 +1,7 @@
 package toko.buku.toko_buku.Repository.Category;
 
+import java.util.List;
+
 import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public interface CategoriRepository {
@@ -8,8 +10,6 @@ public interface CategoriRepository {
 
     public boolean delete(CategoriesEntity category);
 
-    public void update(String id, CategoriesEntity category);
-
-    public void findBooksSameGenre();
+    public List<CategoriesEntity> findBooksSameGenre(CategoriesEntity categoriesEntity);
 
 }

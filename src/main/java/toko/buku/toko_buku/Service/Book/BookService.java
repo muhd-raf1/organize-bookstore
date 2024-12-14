@@ -6,7 +6,7 @@ public interface BookService {
 
     public boolean add(BooksEntity book);
 
-    public void delete(String id);
+    public boolean delete(String id);
 
     public void update(BooksEntity book);
 

@@ -84,7 +84,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public void update(String id, BooksEntity book) {
+    public boolean update(String id, BooksEntity book) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -94,7 +94,12 @@ public class BooksRepositoryImpl implements BooksRepository {
 
             BooksEntity booksEntity = entityManager.find(BooksEntity.class, id);
 
-            if (booksEntity != null) {
+            if (booksEntity == null) {
+
+                transaction.rollback();
+                return false;
+
+            } else {
                 if (book.getAuthor() != null)
                     booksEntity.setAuthor(book.getAuthor());
                 if (book.getDescription() != null)
@@ -114,9 +119,12 @@ public class BooksRepositoryImpl implements BooksRepository {
             }
 
             transaction.commit();
+
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             transaction.rollback();
+            return false;
 
         } finally {
             entityManager.close();

@@ -15,8 +15,8 @@ public class BookServiceImpl implements BookService {
     public boolean add(BooksEntity book) {
 
         if (book != null) {
-            boolean bookRepo = booksRepository.insert(book);
-            return bookRepo;
+            boolean bookRepoInsert = booksRepository.insert(book);
+            return bookRepoInsert;
 
         } else {
             return false;
@@ -24,7 +24,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void delete(String id) {
+    public boolean delete(String id) {
+
+        if (id.trim() != "") {
+            boolean bookRepoDelete = booksRepository.delete(new BooksEntity(id));
+            return bookRepoDelete;
+        } else {
+            return false;
+        }
 
     }
 

@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import toko.buku.Utilities.UtilEntityManagerFactoy;
 import toko.buku.toko_buku.Entity.BooksEntity;
@@ -143,8 +144,12 @@ public class BooksRepositoryImpl implements BooksRepository {
 
             query.select(b);
 
-            query.where(
-                    criteriaBuilder.equal(b.get("id"), book.getId()));
+            Predicate condition1 = criteriaBuilder.equal(b.get("id"), book.getId());
+            Predicate condition2 = criteriaBuilder.equal(b.get("title"), book.getTitle());
+
+            Predicate or = criteriaBuilder.or(condition1, condition2);
+
+            query.where(or);
 
             TypedQuery<BooksEntity> typedQuery = entityManager.createQuery(query);
             BooksEntity singleResult = typedQuery.getSingleResult();
@@ -166,10 +171,4 @@ public class BooksRepositoryImpl implements BooksRepository {
         }
 
     }
-
-    @Override
-    public void findByName(BooksEntity book) {
-
-    }
-
 }

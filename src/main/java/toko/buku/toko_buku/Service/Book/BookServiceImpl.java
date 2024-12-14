@@ -36,7 +36,39 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void update(BooksEntity book) {
+    public boolean update(String id, BooksEntity book) {
+
+        BooksEntity booksEntity = new BooksEntity();
+
+        if (book != null && (id != null && id.trim() != "")) {
+
+            if (book.getAuthor() != null && book.getAuthor().trim() != "")
+                booksEntity.setAuthor(book.getAuthor());
+
+            if (book.getDescription() != null && book.getDescription().trim() != "")
+                booksEntity.setDescription(book.getDescription());
+
+            if (book.getId() != null && book.getId().trim() != "")
+                booksEntity.setId(book.getId());
+
+            if (book.getPages() != null && book.getPages() >= 0)
+                booksEntity.setPages(book.getPages());
+
+            if (book.getPublisher() != null && book.getPublisher().trim() != "")
+                booksEntity.setPublisher(book.getPublisher());
+
+            if (book.getTitle() != null && book.getTitle().trim() != "")
+                booksEntity.setTitle(book.getTitle());
+
+            if (book.getYearOfPublish() != null)
+                booksEntity.setYearOfPublish(book.getYearOfPublish());
+
+            boolean update = booksRepository.update(id, booksEntity);
+
+            return update;
+        } else {
+            return false;
+        }
 
     }
 

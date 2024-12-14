@@ -81,7 +81,51 @@ public class BookTest {
 
     @Test
     void testDeleteNotFoundFail() {
-        boolean delete = bookService.delete("A0005");
+        boolean delete = bookService.delete("A0001");
         Assertions.assertFalse(delete);
+    }
+
+    @Test
+    void testUpdateSuccess() {
+
+        BooksEntity book = new BooksEntity();
+        book.setTitle("Test");
+
+        boolean update = bookService.update("A0003", book);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateNotNullButFail() {
+        BooksEntity book = new BooksEntity();
+        book.setTitle("Test");
+
+        boolean update = bookService.update("A0001", book);
+        Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testUpdateBlankSpaceIdAndNullBookParameterFail() {
+        BooksEntity book = new BooksEntity();
+        book.setTitle("Test");
+
+        boolean test1 = bookService.update("   ", book);
+        Assertions.assertFalse(test1);
+
+        BooksEntity book2 = new BooksEntity();
+        book2.setTitle("Test");
+
+        boolean test2 = bookService.update("A0002", null);
+        Assertions.assertFalse(test2);
+    }
+
+    @Test
+    void testNullIdFail() {
+        BooksEntity book = new BooksEntity();
+        book.setTitle("Test");
+
+        boolean update = bookService.update(null, book);
+        Assertions.assertFalse(update);
     }
 }

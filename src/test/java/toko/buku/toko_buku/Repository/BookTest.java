@@ -21,7 +21,7 @@ public class BookTest {
         book.setAuthor("Rasya");
         book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("A0003");
+        book.setId("");
         book.setIdCategori(new CategoriesEntity("Horror"));
         book.setPages(143);
         book.setPublisher("Niponpaint Sdn. Bhd");
@@ -38,7 +38,7 @@ public class BookTest {
     void testDelete() {
 
         BooksEntity booksEntity = new BooksEntity();
-        booksEntity.setId("A0002");
+        booksEntity.setId("");
 
         boolean delete = booksRepository.delete(booksEntity);
 
@@ -47,12 +47,21 @@ public class BookTest {
 
     @Test
     void testUpdate() {
-        BooksEntity booksEntity = new BooksEntity();
-        // booksEntity.setAuthor("Tere Liye");
-        booksEntity.setPages(213);
-        // booksEntity.setTitle("Pulang");
+        BooksEntity book = new BooksEntity();
+        book.setAuthor("RASYA");
+        book.setCreatedAt(LocalDateTime.now());
+        book.setDescription("This book is good v3");
+        book.setId("A0003");
+        book.setIdCategori(new CategoriesEntity("Horror"));
+        book.setPages(143);
+        book.setPublisher("Niponpaint Sdn. Bhd");
+        book.setTitle("Who ?");
+        book.setYearOfPublish(LocalDateTime.of(2034, 10, 07, 0, 0));
+        book.setUpdatedAt(LocalDateTime.now());
 
-        booksRepository.update("A0002", booksEntity);
+        boolean update = booksRepository.update("A0003", book);
+
+        Assertions.assertTrue(update);
     }
 
     @Test

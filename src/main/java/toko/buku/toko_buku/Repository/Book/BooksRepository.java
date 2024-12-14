@@ -11,6 +11,4 @@ public interface BooksRepository {
     public void update(String id, BooksEntity book);
 
     public BooksEntity findById(BooksEntity book);
-
-    public void findByName(BooksEntity book);
 }

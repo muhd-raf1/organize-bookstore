@@ -8,7 +8,7 @@ public interface BookService {
 
     public boolean delete(String id);
 
-    public void update(BooksEntity book);
+    public boolean update(String id, BooksEntity book);
 
     public void findByIdAndName(String id, String name);
 }

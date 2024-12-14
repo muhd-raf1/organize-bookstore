@@ -34,11 +34,11 @@ public class BookTest {
         book.setAuthor("Tere Liye");
         book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("A0002");
+        book.setId("A0001");
         book.setIdCategori(new CategoriesEntity("Fantasy"));
-        book.setPages(193);
+        book.setPages(233);
         book.setPublisher("Cahaya Sdn. Bhd");
-        book.setTitle("Hujan");
+        book.setTitle("Pulang");
         book.setYearOfPublish(LocalDateTime.of(2018, 5, 27, 0, 0));
         book.setUpdatedAt(LocalDateTime.now());
 
@@ -65,5 +65,23 @@ public class BookTest {
         boolean test = bookService.add(book);
 
         Assertions.assertFalse(test);
+    }
+
+    @Test
+    void testDeleteFail() {
+        boolean delete = bookService.delete("       ");
+        Assertions.assertFalse(delete);
+    }
+
+    @Test
+    void testDeleteSuccess() {
+        boolean delete = bookService.delete("A0001");
+        Assertions.assertTrue(delete);
+    }
+
+    @Test
+    void testDeleteNotFoundFail() {
+        boolean delete = bookService.delete("A0005");
+        Assertions.assertFalse(delete);
     }
 }

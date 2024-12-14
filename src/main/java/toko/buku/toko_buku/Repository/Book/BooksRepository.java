@@ -8,7 +8,7 @@ public interface BooksRepository {
 
     public boolean delete(BooksEntity book);
 
-    public void update(String id, BooksEntity book);
+    public boolean update(String id, BooksEntity book);
 
     public BooksEntity findById(BooksEntity book);
 }

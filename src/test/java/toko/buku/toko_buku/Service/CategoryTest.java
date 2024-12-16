@@ -17,7 +17,36 @@ public class CategoryTest {
     @Test
     void testAddSuccess() {
         boolean b = categoryService.add(new CategoriesEntity("Romace", "Romance"));
-
         Assertions.assertTrue(b);
+    }
+
+    @Test
+    void testAddNullNameAndIdFail() {
+        boolean b = categoryService.add(new CategoriesEntity(null, null));
+        Assertions.assertFalse(b);
+    }
+
+    @Test
+    void testAddEmptyStringNameAndIdFail() {
+        boolean b = categoryService.add(new CategoriesEntity("   ", "  "));
+        Assertions.assertFalse(b);
+    }
+
+    @Test
+    void testAddNullNameAndBlankStringIdFail() {
+        boolean b = categoryService.add(new CategoriesEntity("", null));
+        Assertions.assertFalse(b);
+    }
+
+    @Test
+    void testAddNullNameFail() {
+        boolean b = categoryService.add(new CategoriesEntity("Slice of life", null));
+        Assertions.assertFalse(b);
+    }
+
+    @Test
+    void testAddNullIdFail() {
+        boolean b = categoryService.add(new CategoriesEntity(null, "null"));
+        Assertions.assertFalse(b);
     }
 }

@@ -6,8 +6,6 @@ public interface CategoryService {
 
     public boolean add(CategoriesEntity category);
 
-    public void delete(String id);
-
     public void findBooksSameCategory();
 
 }

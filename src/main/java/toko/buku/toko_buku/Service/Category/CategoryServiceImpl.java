@@ -33,11 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
     public void findBooksSameCategory() {
 
     }

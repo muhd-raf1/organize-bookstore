@@ -41,8 +41,6 @@ public class BooksRepositoryImpl implements BooksRepository {
             entityManager.persist(booksEntity);
 
             transaction.commit();
-            entityManager.close();
-            entityManagerFactory.close();
 
             return true;
         } catch (Exception e) {
@@ -50,6 +48,12 @@ public class BooksRepositoryImpl implements BooksRepository {
             System.out.println("error : " + e.getMessage());
             transaction.rollback();
             return false;
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed !");
+            entityManagerFactory.close();
+            System.out.println("entitymanagerFactory closed !");
         }
 
     }

@@ -12,10 +12,18 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoriRepository = categoriRepository;
     }
 
+    private boolean isNull(CategoriesEntity category) {
+        return category.getId() != null && category.getCategory() != null;
+    }
+
+    private boolean isEmptyString(CategoriesEntity category) {
+        return category.getId().trim() != "" && category.getCategory().trim() != "";
+    }
+
     @Override
     public boolean add(CategoriesEntity category) {
 
-        if (category != null) {
+        if (isNull(category) && isEmptyString(category)) {
             categoriRepository.insert(category);
             return true;
 

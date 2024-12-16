@@ -24,7 +24,6 @@ public class BookTest {
         boolean test = bookService.add(book);
 
         Assertions.assertFalse(test);
-
     }
 
     @Test
@@ -59,7 +58,7 @@ public class BookTest {
         book.setPages(193);
         book.setPublisher("Cahaya Sdn. Bhd");
         book.setTitle("");
-        book.setYearOfPublish(LocalDateTime.of(2018, 5, 27, 0, 0));
+        book.setYearOfPublish(null);
         book.setUpdatedAt(LocalDateTime.now());
 
         boolean test = bookService.add(book);

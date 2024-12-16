@@ -4,7 +4,7 @@ import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public interface CategoryService {
 
-    public void add(CategoriesEntity category);
+    public boolean add(CategoriesEntity category);
 
     public void delete(String id);
 

@@ -1,6 +1,7 @@
 package toko.buku.toko_buku.Repository.Category;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -100,7 +101,13 @@ public class CategoryRepositoryImpl implements CategoriRepository {
 
             transaction.commit();
 
-            return resultList;
+            if (resultList.isEmpty()) {
+                return null;
+            } else {
+                return resultList;
+            }
+
+            // return resultList;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

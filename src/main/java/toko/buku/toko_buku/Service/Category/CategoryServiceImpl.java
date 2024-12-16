@@ -1,5 +1,7 @@
 package toko.buku.toko_buku.Service.Category;
 
+import java.util.List;
+
 import toko.buku.toko_buku.Entity.CategoriesEntity;
 import toko.buku.toko_buku.Repository.Category.CategoriRepository;
 import toko.buku.toko_buku.Repository.Category.CategoryRepositoryImpl;
@@ -33,8 +35,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void findBooksSameCategory() {
+    public List<CategoriesEntity> findBooksSameCategory(String categoryName) {
 
+        if (categoryName != null && categoryName.trim() != "") {
+            List<CategoriesEntity> booksSameGenre = categoriRepository
+                    .findBooksSameGenre(new CategoriesEntity(categoryName));
+            return booksSameGenre;
+        } else {
+            return null;
+        }
     }
 
 }

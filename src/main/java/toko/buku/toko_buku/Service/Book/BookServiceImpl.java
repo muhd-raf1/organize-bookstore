@@ -11,10 +11,23 @@ public class BookServiceImpl implements BookService {
         this.booksRepository = booksRepository;
     }
 
+    private boolean isNull(BooksEntity book) {
+        return book.getAuthor() != null && book.getCreatedAt() != null && book.getDescription() != null &&
+                book.getId() != null && book.getIdCategori() != null && book.getPages() != null
+                && book.getPublisher() != null && book.getTitle() != null && book.getUpdatedAt() != null
+                && book.getYearOfPublish() != null;
+    }
+
+    private boolean isEmptyString(BooksEntity book) {
+        return book.getAuthor().trim() != "" && book.getDescription().trim() != "" &&
+                book.getId().trim() != "" && book.getPages() > 0 && book.getPublisher().trim() != ""
+                && book.getTitle().trim() != "";
+    }
+
     @Override
     public boolean add(BooksEntity book) {
 
-        if (book != null) {
+        if (isNull(book) && isEmptyString(book)) {
             boolean bookRepoInsert = booksRepository.insert(book);
             return bookRepoInsert;
 

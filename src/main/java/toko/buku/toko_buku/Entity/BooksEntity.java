@@ -50,6 +50,11 @@ public class BooksEntity {
         this.id = id;
     }
 
+    public BooksEntity(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public String getId() {
         return id;
     }

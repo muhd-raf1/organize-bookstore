@@ -128,4 +128,42 @@ public class BookTest {
         boolean update = bookService.update(null, book);
         Assertions.assertFalse(update);
     }
+
+    @Test
+    void testFindByIdAndNameSuccess() {
+        BooksEntity test1 = bookService.findByIdAndName("A0002", "Hujan");
+
+        System.out.println(test1.getTitle());
+        System.out.println(test1.getCreatedAt());
+    }
+
+    @Test
+    void testFindByNameSuccess() {
+        BooksEntity test2 = bookService.findByIdAndName(null, "Test");
+
+        System.out.println(test2.getTitle());
+        System.out.println(test2.getCreatedAt());
+    }
+
+    @Test
+    void testFindByIdSuccess() {
+        BooksEntity test2 = bookService.findByIdAndName("A0002", null);
+
+        System.out.println(test2.getTitle());
+        System.out.println(test2.getAuthor());
+    }
+
+    @Test
+    void testFindByIdAndNameFail() {
+        BooksEntity test = bookService.findByIdAndName(null, null);
+
+        Assertions.assertNull(test);
+    }
+
+    @Test
+    void testFindByIdAndNameNotFound() {
+        BooksEntity test = bookService.findByIdAndName("A001", null);
+
+        Assertions.assertNull(test);
+    }
 }

@@ -10,6 +10,8 @@ public interface CategoriRepository {
 
     public boolean delete(CategoriesEntity category);
 
+    public List<CategoriesEntity> findAll();
+
     public List<CategoriesEntity> findBooksSameGenre(CategoriesEntity categoriesEntity);
 
 }

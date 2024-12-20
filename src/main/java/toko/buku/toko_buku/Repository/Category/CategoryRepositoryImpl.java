@@ -119,4 +119,39 @@ public class CategoryRepositoryImpl implements CategoriRepository {
         }
     }
 
+    @Override
+    public List<CategoriesEntity> findAll() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<CategoriesEntity> query = criteriaBuilder
+                    .createQuery(CategoriesEntity.class);
+            Root<CategoriesEntity> c = query.from(CategoriesEntity.class);
+            query.select(c);
+
+            TypedQuery<CategoriesEntity> typedQuery = entityManager.createQuery(query);
+            List<CategoriesEntity> resultList = typedQuery.getResultList();
+
+            transaction.commit();
+
+            return resultList;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            System.out.println("entityManager closed!");
+            entityManagerFactory.close();
+            System.out.println("entityManagerFactory closed!");
+        }
+    }
+
 }

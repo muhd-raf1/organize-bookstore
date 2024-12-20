@@ -88,4 +88,11 @@ public class CategoryTest {
 
         Assertions.assertNull(booksSameCategory);
     }
+
+    @Test
+    void testFindAllCategoriesSuccess() {
+        List<CategoriesEntity> test = categoryService.findAllCategories();
+
+        Assertions.assertNotNull(test);
+    }
 }

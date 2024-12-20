@@ -8,6 +8,8 @@ public interface CategoryService {
 
     public boolean add(CategoriesEntity category);
 
+    public List<CategoriesEntity> findAllCategories();
+
     public List<CategoriesEntity> findBooksSameCategory(String categoryName);
 
 }

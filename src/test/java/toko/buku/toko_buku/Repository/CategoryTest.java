@@ -39,4 +39,14 @@ public class CategoryTest {
         Assertions.assertNotNull(result);
     }
 
+    @Test
+    void testFindAllSuccess() {
+        List<CategoriesEntity> all = categoriRepository.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (CategoriesEntity categoriesEntity : all) {
+            System.out.println(categoriesEntity.getId());
+        }
+    }
 }

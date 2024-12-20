@@ -46,4 +46,11 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    @Override
+    public List<CategoriesEntity> findAllCategories() {
+        List<CategoriesEntity> all = categoriRepository.findAll();
+
+        return all;
+    }
+
 }

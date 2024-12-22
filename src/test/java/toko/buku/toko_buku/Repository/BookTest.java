@@ -66,7 +66,7 @@ public class BookTest {
 
     @Test
     void testFindById() {
-        BooksEntity test = booksRepository.findById(new BooksEntity("A0003"));
+        BooksEntity test = booksRepository.findByIdOrTitle(new BooksEntity("A0003"));
 
         Assertions.assertNotNull(test);
     }
@@ -77,7 +77,7 @@ public class BookTest {
         // booksEntity.setId(null);
         booksEntity.setTitle("Pulang");
 
-        BooksEntity test = booksRepository.findById(booksEntity);
+        BooksEntity test = booksRepository.findByIdOrTitle(booksEntity);
 
         Assertions.assertNotNull(test);
     }
@@ -88,7 +88,7 @@ public class BookTest {
         booksEntity.setId("A0001");
         booksEntity.setTitle("Pulang");
 
-        BooksEntity test = booksRepository.findById(booksEntity);
+        BooksEntity test = booksRepository.findByIdOrTitle(booksEntity);
 
         Assertions.assertNotNull(test);
     }

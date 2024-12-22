@@ -18,6 +18,9 @@
                       value="jdbc:postgresql://localhost:5432/belajar_java_jpa"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="postgres"/>
+            
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- Bisa diganti ke "create", "validate", atau "none" -->
             <property name="hibernate.show_sql" value="true"/> <!-- menampilkan sql di terminal -->
             <property name="hibernate.format_sql" value="true"/> <!-- merapikan/menformatkan sql  -->
         </properties>

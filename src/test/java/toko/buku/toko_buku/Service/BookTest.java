@@ -129,16 +129,8 @@ public class BookTest {
     }
 
     @Test
-    void testFindByIdAndNameSuccess() {
-        BooksEntity test1 = bookService.findByIdAndName("A0002", "Hujan");
-
-        System.out.println(test1.getTitle());
-        System.out.println(test1.getCreatedAt());
-    }
-
-    @Test
     void testFindByNameSuccess() {
-        BooksEntity test2 = bookService.findByIdAndName(null, "Test");
+        BooksEntity test2 = bookService.findByIdOrTitle("Test");
 
         System.out.println(test2.getTitle());
         System.out.println(test2.getCreatedAt());
@@ -146,7 +138,7 @@ public class BookTest {
 
     @Test
     void testFindByIdSuccess() {
-        BooksEntity test2 = bookService.findByIdAndName("A0002", null);
+        BooksEntity test2 = bookService.findByIdOrTitle("A0002");
 
         System.out.println(test2.getTitle());
         System.out.println(test2.getAuthor());
@@ -154,15 +146,22 @@ public class BookTest {
 
     @Test
     void testFindByIdAndNameFail() {
-        BooksEntity test = bookService.findByIdAndName(null, null);
+        BooksEntity test1 = bookService.findByIdOrTitle(null);
+        Assertions.assertNull(test1);
 
+        BooksEntity test2 = bookService.findByIdOrTitle("    ");
+        Assertions.assertNull(test2);
+    }
+
+    @Test
+    void testFindByIdAndNameNotFoundId() {
+        BooksEntity test = bookService.findByIdOrTitle("A001");
         Assertions.assertNull(test);
     }
 
     @Test
-    void testFindByIdAndNameNotFound() {
-        BooksEntity test = bookService.findByIdAndName("A001", null);
-
+    void testFindByIdAndNameNotFoundTitle() {
+        BooksEntity test = bookService.findByIdOrTitle("Hohoho");
         Assertions.assertNull(test);
     }
 }

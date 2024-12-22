@@ -84,4 +84,17 @@ public class BookServiceImpl implements BookService {
         }
 
     }
+
+    @Override
+    public BooksEntity findByIdOrTitle(String data) {
+
+        if (data != null && data.trim() != "") {
+            BooksEntity book = new BooksEntity(data, data);
+            BooksEntity result = booksRepository.findByIdOrTitle(book);
+            return result;
+
+        } else {
+            return null;
+        }
+    }
 }

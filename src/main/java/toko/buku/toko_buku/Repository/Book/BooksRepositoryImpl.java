@@ -1,5 +1,7 @@
 package toko.buku.toko_buku.Repository.Book;
 
+import java.util.List;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -11,6 +13,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import toko.buku.Utilities.UtilEntityManagerFactoy;
 import toko.buku.toko_buku.Entity.BooksEntity;
+import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public class BooksRepositoryImpl implements BooksRepository {
 
@@ -139,7 +142,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     }
 
     @Override
-    public BooksEntity findById(BooksEntity book) {
+    public BooksEntity findByIdOrTitle(BooksEntity book) {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

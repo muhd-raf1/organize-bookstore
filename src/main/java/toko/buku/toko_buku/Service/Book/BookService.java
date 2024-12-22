@@ -10,5 +10,5 @@ public interface BookService {
 
     public boolean update(String id, BooksEntity book);
 
-    public BooksEntity findByIdAndName(String id, String name);
+    public BooksEntity findByIdOrTitle(String data);
 }

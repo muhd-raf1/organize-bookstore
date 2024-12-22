@@ -1,5 +1,7 @@
 package toko.buku.toko_buku.Repository.Book;
 
+import java.util.List;
+
 import toko.buku.toko_buku.Entity.BooksEntity;
 
 public interface BooksRepository {
@@ -10,5 +12,5 @@ public interface BooksRepository {
 
     public boolean update(String id, BooksEntity book);
 
-    public BooksEntity findById(BooksEntity book);
+    public BooksEntity findByIdOrTitle(BooksEntity book);
 }

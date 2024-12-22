@@ -11,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
 import toko.buku.Utilities.UtilEntityManagerFactoy;
+import toko.buku.toko_buku.Entity.BooksEntity;
 import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public class CategoryRepositoryImpl implements CategoriRepository {
@@ -153,5 +154,4 @@ public class CategoryRepositoryImpl implements CategoriRepository {
             System.out.println("entityManagerFactory closed!");
         }
     }
-
 }

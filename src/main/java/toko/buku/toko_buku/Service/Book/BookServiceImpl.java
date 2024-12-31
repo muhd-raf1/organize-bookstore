@@ -1,6 +1,7 @@
 package toko.buku.toko_buku.Service.Book;
 
 import toko.buku.toko_buku.Entity.BooksEntity;
+import toko.buku.toko_buku.Entity.CategoriesEntity;
 import toko.buku.toko_buku.Repository.Book.BooksRepository;
 
 public class BookServiceImpl implements BookService {
@@ -12,14 +13,14 @@ public class BookServiceImpl implements BookService {
     }
 
     private boolean isNull(BooksEntity book) {
-        return book.getAuthor() != null && book.getCreatedAt() != null && book.getDescription() != null &&
-                book.getId() != null && book.getIdCategori() != null && book.getPages() != null
-                && book.getPublisher() != null && book.getTitle() != null && book.getUpdatedAt() != null
+        return book.getAuthor() != null && book.getCreatedAt() != null &&
+                book.getId() != null && book.getIdCategori() != null
+                && book.getPublisher() != null && book.getTitle() != null
                 && book.getYearOfPublish() != null;
     }
 
     private boolean isEmptyString(BooksEntity book) {
-        return book.getAuthor().trim() != "" && book.getDescription().trim() != "" &&
+        return book.getAuthor().trim() != "" &&
                 book.getId().trim() != "" && book.getPages() > 0 && book.getPublisher().trim() != ""
                 && book.getTitle().trim() != "";
     }
@@ -56,25 +57,30 @@ public class BookServiceImpl implements BookService {
         if (book != null && (id != null && id.trim() != "")) {
 
             if (book.getAuthor() != null && book.getAuthor().trim() != "")
-                booksEntity.setAuthor(book.getAuthor());
+                booksEntity.setAuthor(book.getAuthor().replace("-", " "));
 
             if (book.getDescription() != null && book.getDescription().trim() != "")
-                booksEntity.setDescription(book.getDescription());
+                booksEntity.setDescription(book.getDescription().replace("-", " "));
 
             if (book.getId() != null && book.getId().trim() != "")
-                booksEntity.setId(book.getId());
+                booksEntity.setId(book.getId().replace("-", " "));
 
             if (book.getPages() != null && book.getPages() >= 0)
                 booksEntity.setPages(book.getPages());
 
             if (book.getPublisher() != null && book.getPublisher().trim() != "")
-                booksEntity.setPublisher(book.getPublisher());
+                booksEntity.setPublisher(book.getPublisher().replace("-", " "));
 
             if (book.getTitle() != null && book.getTitle().trim() != "")
-                booksEntity.setTitle(book.getTitle());
+                booksEntity.setTitle(book.getTitle().replace("-", " "));
 
             if (book.getYearOfPublish() != null)
                 booksEntity.setYearOfPublish(book.getYearOfPublish());
+
+            if (book.getIdCategori() != null)
+                if (book.getIdCategori().getId() != null &&
+                        !book.getIdCategori().getId().trim().isEmpty())
+                    booksEntity.setIdCategori(new CategoriesEntity(book.getIdCategori().getId()));
 
             boolean update = booksRepository.update(id, booksEntity);
 

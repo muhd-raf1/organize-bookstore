@@ -55,38 +55,37 @@ public class CategoryTest {
 
     @Test
     void testFindBooksSameGenreSuccess() {
-        List<CategoriesEntity> test = categoryService.findBooksSameCategory("Fantasy");
+        List<BooksEntity> test = categoryService
+                .findBooksSameCategory("Fantasy");
         Assertions.assertNotNull(test);
 
-        for (CategoriesEntity testing : test) {
-            for (BooksEntity testBook : testing.getBooks()) {
-                System.out.println(testBook.getTitle());
-            }
+        for (BooksEntity booksEntity : test) {
+            System.out.println(booksEntity.getTitle());
         }
     }
 
     @Test
     void testFindBookSameGenreNullFail() {
-        List<CategoriesEntity> booksSameCategory = categoryService
+        List<BooksEntity> test = categoryService
                 .findBooksSameCategory(null);
 
-        Assertions.assertNull(booksSameCategory);
+        Assertions.assertNull(test);
     }
 
     @Test
     void testFindBookSameGenreEmptyStringFail() {
-        List<CategoriesEntity> booksSameCategory = categoryService
+        List<BooksEntity> test = categoryService
                 .findBooksSameCategory("   ");
 
-        Assertions.assertNull(booksSameCategory);
+        Assertions.assertNull(test);
     }
 
     @Test
     void testFindBookSameGenreNotFoundFail() {
-        List<CategoriesEntity> booksSameCategory = categoryService
+        List<BooksEntity> test = categoryService
                 .findBooksSameCategory("tod");
 
-        Assertions.assertNull(booksSameCategory);
+        Assertions.assertNull(test);
     }
 
     @Test
@@ -94,5 +93,9 @@ public class CategoryTest {
         List<CategoriesEntity> test = categoryService.findAllCategories();
 
         Assertions.assertNotNull(test);
+
+        for (CategoriesEntity categoriesEntity : test) {
+            System.out.println(categoriesEntity.getId());
+        }
     }
 }

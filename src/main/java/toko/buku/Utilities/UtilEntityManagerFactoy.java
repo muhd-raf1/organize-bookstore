@@ -17,4 +17,11 @@ public class UtilEntityManagerFactoy {
         return entityManagerFactory;
     }
 
+    public static void closeEntityManagerfactory() {
+
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
+    }
+
 }

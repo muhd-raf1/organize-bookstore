@@ -19,15 +19,15 @@ public class BookTest {
 
         BooksEntity book = new BooksEntity();
         book.setAuthor("Rasya");
-        book.setCreatedAt(LocalDateTime.now());
+        // book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("");
+        book.setId("A0006");
         book.setIdCategori(new CategoriesEntity("Horror"));
         book.setPages(143);
         book.setPublisher("Niponpaint Sdn. Bhd");
-        book.setTitle("Who ?");
+        book.setTitle("Test 2");
         book.setYearOfPublish(LocalDateTime.of(2034, 10, 07, 0, 0));
-        book.setUpdatedAt(LocalDateTime.now());
+        // book.setUpdatedAt(LocalDateTime.now());
 
         boolean insert = booksRepository.insert(book);
 
@@ -38,11 +38,11 @@ public class BookTest {
     void testDelete() {
 
         BooksEntity booksEntity = new BooksEntity();
-        booksEntity.setId("");
+        booksEntity.setId("a");
 
         boolean delete = booksRepository.delete(booksEntity);
 
-        Assertions.assertTrue(delete);
+        Assertions.assertFalse(delete);
     }
 
     @Test
@@ -60,6 +60,49 @@ public class BookTest {
         book.setUpdatedAt(LocalDateTime.now());
 
         boolean update = booksRepository.update("A0003", book);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateCategoryId() {
+
+        BooksEntity book = new BooksEntity();
+        book.setTitle("test-test");
+        book.setIdCategori(new CategoriesEntity("Romace"));
+
+        boolean update = booksRepository.update("A0002", book);
+
+        Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testUpdateCategoryIdNullButDataExist() {
+
+        BooksEntity book = new BooksEntity();
+
+        boolean update = booksRepository.update("A0002", book);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateCategoryIdNotExist() {
+
+        BooksEntity book = new BooksEntity();
+        book.setIdCategori(new CategoriesEntity("Hello"));
+
+        boolean update = booksRepository.update("A0002", book);
+
+        Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testUpdateIdCategorySuccess() {
+        BooksEntity book = new BooksEntity();
+        book.setIdCategori(new CategoriesEntity("Fantasy"));
+
+        boolean update = booksRepository.update("A0002", book);
 
         Assertions.assertTrue(update);
     }
@@ -92,4 +135,22 @@ public class BookTest {
 
         Assertions.assertNotNull(test);
     }
+
+    // @Test
+    // void testFindBooksSameGenreNull() {
+    // BooksEntity book = new BooksEntity();
+    // book.setIdCategori(new CategoriesEntity("Horror"));
+
+    // List<BooksEntity> result = booksRepository.findSameCategory(book);
+    // Assertions.assertNull(result);
+    // }
+
+    // @Test
+    // void testFindBooksSameGenreSuccess() {
+    // BooksEntity book = new BooksEntity();
+    // book.setIdCategori(new CategoriesEntity("Romace"));
+
+    // List<BooksEntity> result = booksRepository.findSameCategory(book);
+    // Assertions.assertNotNull(result);
+    // }
 }

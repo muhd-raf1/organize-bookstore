@@ -1,9 +1,8 @@
 package toko.buku.toko_buku.Repository.Book;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -17,13 +16,12 @@ import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public class BooksRepositoryImpl implements BooksRepository {
 
-    private EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
     private BooksEntity booksEntity;
 
     @Override
     public boolean insert(BooksEntity book) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -31,7 +29,7 @@ public class BooksRepositoryImpl implements BooksRepository {
 
             booksEntity = new BooksEntity();
             booksEntity.setAuthor(book.getAuthor());
-            booksEntity.setCreatedAt(book.getCreatedAt());
+            booksEntity.setCreatedAt(LocalDateTime.now());
             booksEntity.setDescription(book.getDescription());
             booksEntity.setId(book.getId());
             booksEntity.setPages(book.getPages());
@@ -55,8 +53,6 @@ public class BooksRepositoryImpl implements BooksRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed !");
-            entityManagerFactory.close();
-            System.out.println("entitymanagerFactory closed !");
         }
 
     }
@@ -64,7 +60,7 @@ public class BooksRepositoryImpl implements BooksRepository {
     @Override
     public boolean delete(BooksEntity book) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -84,8 +80,6 @@ public class BooksRepositoryImpl implements BooksRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed !");
-            entityManagerFactory.close();
-            System.out.println("entitymanagerFactory closed !");
         }
 
     }
@@ -93,41 +87,44 @@ public class BooksRepositoryImpl implements BooksRepository {
     @Override
     public boolean update(String id, BooksEntity book) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
             transaction.begin();
 
-            BooksEntity booksEntity = entityManager.find(BooksEntity.class, id);
+            if (id != null && book != null) {
 
-            if (booksEntity == null) {
+                booksEntity = entityManager.find(BooksEntity.class, id);
 
-                transaction.rollback();
-                return false;
+                if (booksEntity != null) {
+                    // cek field mana saja yang mau di update
+                    if (book.getAuthor() != null)
+                        booksEntity.setAuthor(book.getAuthor());
+                    if (book.getDescription() != null)
+                        booksEntity.setDescription(book.getDescription());
+                    if (book.getPages() != null)
+                        booksEntity.setPages(book.getPages());
+                    if (book.getPublisher() != null)
+                        booksEntity.setPublisher(book.getPublisher());
+                    if (book.getTitle() != null)
+                        booksEntity.setTitle(book.getTitle());
+                    if (book.getYearOfPublish() != null)
+                        booksEntity.setYearOfPublish(book.getYearOfPublish());
+                    if (book.getIdCategori() != null)
+                        booksEntity.setIdCategori(new CategoriesEntity(book.getIdCategori().getId()));
 
-            } else {
-                if (book.getAuthor() != null)
-                    booksEntity.setAuthor(book.getAuthor());
-                if (book.getDescription() != null)
-                    booksEntity.setDescription(book.getDescription());
-                if (book.getId() != null)
-                    booksEntity.setId(book.getId());
-                if (book.getPages() != null)
-                    booksEntity.setPages(book.getPages());
-                if (book.getPublisher() != null)
-                    booksEntity.setPublisher(book.getPublisher());
-                if (book.getTitle() != null)
-                    booksEntity.setTitle(book.getTitle());
-                if (book.getYearOfPublish() != null)
-                    booksEntity.setYearOfPublish(book.getYearOfPublish());
-
-                entityManager.merge(booksEntity);
+                    entityManager.merge(booksEntity);
+                }
             }
 
             transaction.commit();
 
-            return true;
+            if (booksEntity == null) {
+                return false;
+            } else {
+                return true;
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             transaction.rollback();
@@ -136,15 +133,13 @@ public class BooksRepositoryImpl implements BooksRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed !");
-            entityManagerFactory.close();
-            System.out.println("entityManagerFactory closed !");
         }
     }
 
     @Override
     public BooksEntity findByIdOrTitle(BooksEntity book) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -181,8 +176,6 @@ public class BooksRepositoryImpl implements BooksRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager clossed !");
-            entityManagerFactory.close();
-            System.out.println("entityMangerFactory closed !");
         }
 
     }

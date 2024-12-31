@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import toko.buku.toko_buku.Entity.BooksEntity;
 import toko.buku.toko_buku.Entity.CategoriesEntity;
 import toko.buku.toko_buku.Repository.Category.CategoriRepository;
 import toko.buku.toko_buku.Repository.Category.CategoryRepositoryImpl;
@@ -33,10 +34,27 @@ public class CategoryTest {
     }
 
     @Test
-    void testFindBooksSameGenre() {
-        List<CategoriesEntity> result = categoriRepository
-                .findBooksSameGenre(new CategoriesEntity("Category"));
-        Assertions.assertNotNull(result);
+    void testFindBooksSameGenreNull() {
+        BooksEntity bookTest = new BooksEntity();
+        bookTest.setIdCategori(new CategoriesEntity("Horror"));
+
+        List<BooksEntity> test = categoriRepository.findBooksSameGenre(bookTest);
+
+        Assertions.assertNull(test);
+    }
+
+    @Test
+    void testFindBooksSameGenreSuccess() {
+        BooksEntity bookTest = new BooksEntity();
+        bookTest.setIdCategori(new CategoriesEntity("Romace"));
+
+        List<BooksEntity> test = categoriRepository.findBooksSameGenre(bookTest);
+
+        Assertions.assertNotNull(test);
+
+        for (BooksEntity booksEntity : test) {
+            System.out.println(booksEntity.getTitle());
+        }
     }
 
     @Test

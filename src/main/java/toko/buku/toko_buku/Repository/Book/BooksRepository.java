@@ -1,7 +1,5 @@
 package toko.buku.toko_buku.Repository.Book;
 
-import java.util.List;
-
 import toko.buku.toko_buku.Entity.BooksEntity;
 
 public interface BooksRepository {

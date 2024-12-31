@@ -2,6 +2,7 @@ package toko.buku.toko_buku.Repository.Category;
 
 import java.util.List;
 
+import toko.buku.toko_buku.Entity.BooksEntity;
 import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public interface CategoriRepository {
@@ -12,6 +13,6 @@ public interface CategoriRepository {
 
     public List<CategoriesEntity> findAll();
 
-    public List<CategoriesEntity> findBooksSameGenre(CategoriesEntity categoriesEntity);
+    public List<BooksEntity> findBooksSameGenre(BooksEntity booksEntity);
 
 }

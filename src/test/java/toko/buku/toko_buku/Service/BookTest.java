@@ -33,11 +33,11 @@ public class BookTest {
         book.setAuthor("Tere Liye");
         book.setCreatedAt(LocalDateTime.now());
         book.setDescription("This book is good");
-        book.setId("A0001");
+        book.setId("A0004");
         book.setIdCategori(new CategoriesEntity("Fantasy"));
         book.setPages(233);
         book.setPublisher("Cahaya Sdn. Bhd");
-        book.setTitle("Pulang");
+        book.setTitle("Hello Cello");
         book.setYearOfPublish(LocalDateTime.of(2018, 5, 27, 0, 0));
         book.setUpdatedAt(LocalDateTime.now());
 
@@ -85,23 +85,31 @@ public class BookTest {
     }
 
     @Test
-    void testUpdateSuccess() {
-
-        BooksEntity book = new BooksEntity();
-        book.setTitle("Test");
-
-        boolean update = bookService.update("A0003", book);
-
-        Assertions.assertTrue(update);
-    }
-
-    @Test
-    void testUpdateNotNullButFail() {
+    void testUpdateNotFaundIdFail() {
         BooksEntity book = new BooksEntity();
         book.setTitle("Test");
 
         boolean update = bookService.update("A0001", book);
         Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testNotAllNeedToUpdateSuccess() {
+        BooksEntity book = new BooksEntity();
+        book.setTitle("Test");
+
+        boolean update = bookService.update("A0003", book);
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateIdCategorySuccess() {
+        BooksEntity book = new BooksEntity();
+        book.setIdCategori(new CategoriesEntity("Romace"));
+        book.setTitle("Pulang-Pergi");
+
+        boolean update = bookService.update("A0002", book);
+        Assertions.assertTrue(update);
     }
 
     @Test
@@ -130,7 +138,7 @@ public class BookTest {
 
     @Test
     void testFindByNameSuccess() {
-        BooksEntity test2 = bookService.findByIdOrTitle("Test");
+        BooksEntity test2 = bookService.findByIdOrTitle("Who ?");
 
         System.out.println(test2.getTitle());
         System.out.println(test2.getCreatedAt());

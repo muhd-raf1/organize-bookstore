@@ -3,7 +3,6 @@ package toko.buku.toko_buku.Repository.Category;
 import java.util.List;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -16,12 +15,10 @@ import toko.buku.toko_buku.Entity.CategoriesEntity;
 
 public class CategoryRepositoryImpl implements CategoriRepository {
 
-    private EntityManagerFactory entityManagerFactory = UtilEntityManagerFactoy.getEntityManagerFactory();
-
     @Override
     public boolean insert(CategoriesEntity category) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -39,8 +36,6 @@ public class CategoryRepositoryImpl implements CategoriRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed");
-            entityManagerFactory.close();
-            System.out.println("entityManagerfactory closed");
         }
 
     }
@@ -48,7 +43,7 @@ public class CategoryRepositoryImpl implements CategoriRepository {
     @Override
     public boolean delete(CategoriesEntity category) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -70,16 +65,14 @@ public class CategoryRepositoryImpl implements CategoriRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed");
-            entityManagerFactory.close();
-            System.out.println("entityManagerfactory closed");
         }
 
     }
 
     @Override
-    public List<CategoriesEntity> findBooksSameGenre(CategoriesEntity categoriesEntity) {
+    public List<BooksEntity> findBooksSameGenre(BooksEntity booksEntity) {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory().createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -94,17 +87,18 @@ public class CategoryRepositoryImpl implements CategoriRepository {
             query.select(c);
 
             query.where(
-                    criteriaBuilder.equal(c.get("id"), categoriesEntity.getId()));
+                    criteriaBuilder.equal(c.get("id"), booksEntity.getIdCategori().getId()));
 
             TypedQuery<CategoriesEntity> typedQuery = entityManager.createQuery(query);
-            List<CategoriesEntity> resultList = typedQuery.getResultList();
+            CategoriesEntity singleResult = typedQuery.getSingleResult();
 
             transaction.commit();
 
-            if (resultList.isEmpty()) {
-                return null;
+            if (singleResult != null && !singleResult.getBooks().isEmpty()) {
+                return singleResult.getBooks();
+
             } else {
-                return resultList;
+                return null;
             }
 
         } catch (Exception e) {
@@ -115,14 +109,13 @@ public class CategoryRepositoryImpl implements CategoriRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed!");
-            entityManagerFactory.close();
-            System.out.println("entityManagerFactory closed !");
         }
     }
 
     @Override
     public List<CategoriesEntity> findAll() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = UtilEntityManagerFactoy.getEntityManagerFactory()
+                .createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -150,8 +143,6 @@ public class CategoryRepositoryImpl implements CategoriRepository {
         } finally {
             entityManager.close();
             System.out.println("entityManager closed!");
-            entityManagerFactory.close();
-            System.out.println("entityManagerFactory closed!");
         }
     }
 }
